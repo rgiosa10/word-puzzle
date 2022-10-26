@@ -1,8 +1,5 @@
 // Business Logic
 
-const text = "Believe you can and you're halfway there. Theodore Roosevelt";
-const vowelArray = ["a","e","i","o","u"];
-
 function individualVowel(vowelArray) {
   for (let i = 0; i < vowelArray.length; i+=1) {
     let individualVowelOutput = vowelArray[i];
@@ -12,18 +9,17 @@ function individualVowel(vowelArray) {
 }
 
 function intake(vowelArray, text) {
-  vowelArray.forEach(function(vowelToTest) {
-    cleanArray = replaceVowel(vowelToTest, text);
-  });
+  let textArray = text.split(" ");
+  
+  for (let i = 0; i < vowelArray.length; i+=1) {
+    vowelToTest = vowelArray[i];
+    textArray = replaceVowel(vowelToTest, textArray);
+  };
   // console.log(textArray);
-  return cleanArray;
+  return textArray;
 }
 
-
-
-
-function replaceVowel(word, text) {
-  let textArray = text.split(" ");
+function replaceVowel(word, textArray) {
   
   for (let i = 0; i < textArray.length; i +=1) {
     if (textArray[i].includes(word)) {
@@ -37,31 +33,20 @@ function replaceVowel(word, text) {
   return textArray;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // UI Logic
 
-
-
-
-window.addEventListener("load", function(event) {
-  event.preventDefault();
+window.addEventListener("load", function() {
+  let form = document.getElementById("text-input");
   let result = document.getElementById("results");
+  const vowelArray = ["a","e","i","o","u"];
 
-  intake(vowelArray, text);
-  result.append(cleanArray);
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const text = form.querySelector("input#text-input1").value;
+    
+    textArray = intake(vowelArray, text).toString().replaceAll(",", " ");
+    result.append(textArray);
+  });
 });
 
 
